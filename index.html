@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+
+window.onload = function () {
+
+var chart = new CanvasJS.Chart("chartContainer", {
+	exportEnabled: true,
+	animationEnabled: true,
+	title:{
+		text: "Average Yield per plant by batch"
+	},
+	legend:{
+		cursor: "pointer",
+		itemclick: explodePie
+	},
+	data: [{
+		type: "pie",
+		showInLegend: true,
+		toolTipContent: "{name}: <strong>{y}%</strong>",
+		indexLabel: "{name} - {y}",
+		dataPoints: [
+			{ y: 91.6, name: "4", exploded: true },
+			{ y: 84.4, name: "7" },
+			{ y: 58.5, name: "2" },
+			{ y: 55.1, name: "5" },
+			{ y: 46.3, name: "1" },
+			{ y: 45.6, name: "3" },
+			{ y: 29.9, name: "6"}
+		]
+	}]
+});
+chart.render();
+}
+
+function explodePie (e) {
+	if(typeof (e.dataSeries.dataPoints[e.dataPointIndex].exploded) === "undefined" || !e.dataSeries.dataPoints[e.dataPointIndex].exploded) {
+		e.dataSeries.dataPoints[e.dataPointIndex].exploded = true;
+	} else {
+		e.dataSeries.dataPoints[e.dataPointIndex].exploded = false;
+	}
+	e.chart.render();
+
+}
+
+</script>
+</head>
+<body>
+<div id="chartContainer" style="height: 300px; width: 100%;"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</body>
+</html>
